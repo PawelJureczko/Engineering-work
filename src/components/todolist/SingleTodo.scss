@@ -1,0 +1,17 @@
+.SingleTodo {
+  display: grid;
+  margin: 10px;
+  padding: 10px;
+  grid-template-columns: 5fr 5fr 1fr 1fr;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: #b8c5c1;
+  box-shadow: 5px 3px 3px #c0ccc8;
+
+  &_icon {
+    cursor: pointer;
+  }
+  &_done {
+    text-decoration: line-through;
+  }
+}
