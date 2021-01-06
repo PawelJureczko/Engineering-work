@@ -31,6 +31,7 @@ const TodolistForm = () => {
         .add({
           name: name,
           todo: todo,
+          isDone: false,
         })
         .then(() => {
           setTodo("");
@@ -80,6 +81,7 @@ const TodolistForm = () => {
           id={todo.id}
           name={todo.name}
           task={todo.todo}
+          isDone={todo.isDone}
         />
       ))}
     </>
