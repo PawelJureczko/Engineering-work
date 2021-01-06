@@ -6,15 +6,18 @@
   border: 1px solid grey;
   border-radius: 10px;
   background-color: #b8c5c1;
+  background-image: linear-gradient(to bottom right, #c8c5c1, #b8c5c1, #c8c5c1);
   box-shadow: 5px 3px 3px #c0ccc8;
 
-  &_icon {
+  &__icon {
     cursor: pointer;
     &:active {
       color: white;
     }
   }
-  &_done {
+  &__done {
     text-decoration: line-through;
+    background-image: linear-gradient(to bottom right, lightgreen, green);
+    box-shadow: 5px 3px 3px lightgreen;
   }
 }

@@ -4,41 +4,41 @@ import "./SingleTodo.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-const SingleTodo = (props) => {
-  const [doneClass, setDoneClass] = useState(props.isDone);
+const SingleTodo = ({ isDone, id, name, task }) => {
+  const [isChecked, setIsChecked] = useState(isDone);
 
   function handleDelete() {
     firebase
       .firestore()
       .collection("todos")
-      .doc(props.id)
+      .doc(id)
       .delete()
       .then(function () {
-        console.log(props.id, "got deleted");
+        console.log(id, "got deleted");
       });
   }
 
   function handleDone() {
-    setDoneClass(!doneClass);
     firebase
       .firestore()
       .collection("todos")
-      .doc(props.id)
-      .update({ isDone: !doneClass });
+      .doc(id)
+      .update({ isDone: !isChecked });
+    setIsChecked(!isChecked);
   }
   return (
-    <ul className="SingleTodo_wrapper">
+    <ul className="SingleTodo__wrapper">
       {/* do zrobienia - wrzucenie do bazy danych info czy task jest zrobiony czy nie.  */}
-      <li className={doneClass ? "SingleTodo SingleTodo_done" : "SingleTodo "}>
-        <span className="SingleTodo_name">{props.name}</span>{" "}
-        <span className="SingleTodo_task">{props.task}</span>
+      <li className={isChecked ? "SingleTodo SingleTodo__done" : "SingleTodo "}>
+        <span className="SingleTodo__name">{name}</span>{" "}
+        <span className="SingleTodo__task">{task}</span>
         <FontAwesomeIcon
-          className="SingleTodo_icon"
+          className="SingleTodo__icon"
           icon={faCheck}
           onClick={handleDone}
         />
         <FontAwesomeIcon
-          className="SingleTodo_icon"
+          className="SingleTodo__icon"
           icon={faTrashAlt}
           onClick={handleDelete}
         />
