@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../../firebase";
 import SingleTodo from "./SingleTodo";
-// import ToDoList from "./todolist";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./TodolistForm.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TodolistForm = () => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [name, setName] = useState("");
-
-  function handleClick(e) {
-    e.preventDefault();
-    firebase
-      .firestore()
-      .collection("todos")
-      .where("name", "==", "pawel")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          console.log(doc.data());
-        });
-      });
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -55,26 +47,49 @@ const TodolistForm = () => {
   }, []);
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Wpisz zadanie:
-          <input
-            type="text"
-            value={todo}
-            onChange={(e) => setTodo(e.target.value)}
-          />
-        </label>
-        <label>
-          Imię:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <input type="submit" value="submit" />
-      </form>
-      <button onClick={handleClick}>check</button>
+      <Form onSubmit={handleSubmit}>
+        <Container>
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Label>
+                  Wpisz zadanie:
+                  <Form.Control
+                    as="textarea"
+                    rows={2}
+                    cols={80}
+                    value={todo}
+                    onChange={(e) => setTodo(e.target.value)}
+                  />
+                </Form.Label>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Form.Group>
+              <Col>
+                <Form.Label>
+                  Imię:
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Form.Label>
+              </Col>
+            </Form.Group>
+          </Row>
+          <Row style={{ paddingLeft: "14px" }}>
+            <Button
+              as="input"
+              type="submit"
+              value="submit"
+              className="submitButton"
+              style={{ border: "none" }}
+            />
+          </Row>
+        </Container>
+      </Form>
       {todos.map((todo) => (
         <SingleTodo
           key={todo.id}

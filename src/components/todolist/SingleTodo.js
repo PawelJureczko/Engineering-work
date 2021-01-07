@@ -33,7 +33,11 @@ const SingleTodo = ({ isDone, id, name, task }) => {
         <span className="SingleTodo__name">{name}</span>{" "}
         <span className="SingleTodo__task">{task}</span>
         <FontAwesomeIcon
-          className="SingleTodo__icon"
+          className={
+            isChecked
+              ? "SingleTodo__icon__done SingleTodo__icon"
+              : "SingleTodo__icon"
+          }
           icon={faCheck}
           onClick={handleDone}
         />
