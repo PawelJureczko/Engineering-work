@@ -1,0 +1,15 @@
+.navbar {
+  &__wrapper {
+    height: 100px;
+    background-image: linear-gradient(
+      to bottom right,
+      #c8c5c1,
+      #b8c5c1,
+      #c8c5c1
+    );
+
+    &__image {
+      cursor: pointer;
+    }
+  }
+}
