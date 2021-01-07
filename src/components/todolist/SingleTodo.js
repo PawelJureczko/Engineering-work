@@ -7,6 +7,7 @@ import { faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 const SingleTodo = ({ isDone, id, name, task }) => {
   const [isChecked, setIsChecked] = useState(isDone);
 
+  // do dodania - modal czy na pewno chce usunac dany rekord
   function handleDelete() {
     firebase
       .firestore()
@@ -28,7 +29,6 @@ const SingleTodo = ({ isDone, id, name, task }) => {
   }
   return (
     <ul className="SingleTodo__wrapper">
-      {/* do zrobienia - wrzucenie do bazy danych info czy task jest zrobiony czy nie.  */}
       <li className={isChecked ? "SingleTodo SingleTodo__done" : "SingleTodo "}>
         <span className="SingleTodo__name">{name}</span>{" "}
         <span className="SingleTodo__task">{task}</span>
