@@ -78,13 +78,17 @@ const TodolistForm = () => {
                 </Form.Label>
               </Col>
             </Form.Group>
-          </Row>
-          <Row style={{ paddingLeft: "14px" }}>
+            {/* </Row>
+          <Row style={{ paddingLeft: "14px" }}> */}
             <Button
               as="input"
               type="submit"
               value="submit"
-              style={{ border: "none" }}
+              style={{
+                border: "none",
+                marginTop: "25px",
+                marginBottom: "30px",
+              }}
             />
           </Row>
         </Container>
