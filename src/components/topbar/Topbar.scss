@@ -3,13 +3,18 @@
     height: 100px;
     background-image: linear-gradient(
       to bottom right,
-      #c8c5c1,
-      #b8c5c1,
-      #c8c5c1
+      #7593cf,
+      #5069d6,
+      #5069d3
     );
 
     &__image {
       cursor: pointer;
     }
   }
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.904) !important;
+  font-weight: bold;
 }

@@ -14,11 +14,7 @@ const Topbar = () => {
         style={{ cursor: "pointer" }}
         className="navbar__image"
       >
-        <img
-          alt="company logo"
-          src={Logo}
-          onClick={() => console.log("hi")}
-        ></img>
+        <img alt="company logo" src={Logo}></img>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Nav className="mr-auto">
@@ -29,11 +25,12 @@ const Topbar = () => {
       </Nav>
       <Nav className="mr-5">
         <NavDropdown title="Moje konto" id="basic-nav-dropdown">
-          <NavDropdown.Item href="">Action</NavDropdown.Item>
-          <NavDropdown.Item href="">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="">Something</NavDropdown.Item>
+          <NavDropdown.Item href="">Mój profil</NavDropdown.Item>
+          <NavDropdown.Item href="">Ustawienia</NavDropdown.Item>
+          <NavDropdown.Item href="">Zmień hasło</NavDropdown.Item>
+
           <NavDropdown.Divider />
-          <NavDropdown.Item href="">Separated link</NavDropdown.Item>
+          <NavDropdown.Item href="">Wyloguj</NavDropdown.Item>
         </NavDropdown>
       </Nav>
     </Navbar>

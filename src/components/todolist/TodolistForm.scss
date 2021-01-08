@@ -1,3 +1,8 @@
-.submitButton {
-  background-image: linear-gradient(to bottom right, #c8c5c1, #b8c5c1, #c8c5c1);
+.btn {
+  background-image: linear-gradient(to bottom right, #5069d6, #5069d6, #5069d6);
+  &:focus,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }

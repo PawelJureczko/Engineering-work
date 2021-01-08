@@ -84,7 +84,6 @@ const TodolistForm = () => {
               as="input"
               type="submit"
               value="submit"
-              className="submitButton"
               style={{ border: "none" }}
             />
           </Row>
