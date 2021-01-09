@@ -92,6 +92,7 @@ const TodolistForm = () => {
             />
           </Row>
         </Container>
+        <h3 className="tdl_title">Lista zadań:</h3>
       </Form>
       {todos.map((todo) => (
         <SingleTodo

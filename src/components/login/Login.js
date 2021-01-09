@@ -23,6 +23,8 @@ const Login = (props) => {
     setHasAccount,
     emailError,
     passwordError,
+    clearErrors,
+    clearInputs,
   } = props;
 
   return (
@@ -69,7 +71,11 @@ const Login = (props) => {
                 <Button
                   variant="primary"
                   style={{ width: "30vw" }}
-                  onClick={() => setLoginView(false)}
+                  onClick={() => {
+                    setLoginView(false);
+                    clearErrors();
+                    clearInputs();
+                  }}
                 >
                   Zarejestruj się
                 </Button>
@@ -133,7 +139,11 @@ const Login = (props) => {
                 <Button
                   variant="primary"
                   style={{ width: "30vw" }}
-                  onClick={() => setLoginView(false)}
+                  onClick={() => {
+                    setLoginView(false);
+                    clearErrors();
+                    clearInputs();
+                  }}
                 >
                   Zarejestruj się
                 </Button>
@@ -142,7 +152,11 @@ const Login = (props) => {
                 <Button
                   className="btn-secondary"
                   style={{ width: "15vw" }}
-                  onClick={() => setLoginView(true)}
+                  onClick={() => {
+                    setLoginView(true);
+                    clearErrors();
+                    clearInputs();
+                  }}
                 >
                   Powrót do logowania
                 </Button>
