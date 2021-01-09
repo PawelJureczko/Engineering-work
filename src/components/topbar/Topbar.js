@@ -6,7 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Topbar.scss";
 import Logo from "../../assets/icon/logo.png";
 
-const Topbar = () => {
+const Topbar = (props) => {
+  const { handleLogout } = props;
   return (
     <Navbar fixed="top" className="navbar__wrapper navbar-fixed-top">
       <Navbar.Brand
@@ -20,17 +21,19 @@ const Topbar = () => {
       <Nav className="mr-auto">
         <Nav.Link href="">Strona główna</Nav.Link>
         <Nav.Link href="">Lista tematów</Nav.Link>
-        <Nav.Link href="">Obecność</Nav.Link>
+        <Nav.Link href="">Lista obecności</Nav.Link>
         <Nav.Link href="">Wiadomości</Nav.Link>
       </Nav>
       <Nav className="mr-5">
         <NavDropdown title="Moje konto" id="basic-nav-dropdown">
-          <NavDropdown.Item href="">Mój profil</NavDropdown.Item>
+          <NavDropdown.Item href="">Moje konto</NavDropdown.Item>
           <NavDropdown.Item href="">Ustawienia</NavDropdown.Item>
-          <NavDropdown.Item href="">Zmień hasło</NavDropdown.Item>
+          <NavDropdown.Item href="">Zmiana hasła</NavDropdown.Item>
 
           <NavDropdown.Divider />
-          <NavDropdown.Item href="">Wyloguj</NavDropdown.Item>
+          <NavDropdown.Item href="" onClick={handleLogout}>
+            Wyloguj
+          </NavDropdown.Item>
         </NavDropdown>
       </Nav>
     </Navbar>

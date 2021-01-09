@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,117 +6,152 @@ import Container from "react-bootstrap/Container";
 import "./Login.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import firebase from "../../firebase";
+import "firebase/auth";
 
-const Login = () => {
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [hasAccount, setHasAccount] = useState("");
-
-  const clearInputs = () => {
-    setEmail("");
-    setPassword("");
-  };
-
-  const clearErrors = () => {
-    setEmailError("");
-    setPasswordError("");
-  };
-
-  const handleLogin = () => {
-    clearErrors();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-            setEmailError(err.message);
-            break;
-          case "auth/wrong-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
-  };
-
-  const handleSignup = () => {
-    clearErrors();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/email-already-in-use":
-          case "auth/invalid-email":
-            setEmailError(err.message);
-            break;
-          case "auth/weak-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
-  };
-
-  const handleLogout = () => {
-    firebase.auth().signOut();
-  };
-
-  const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        clearInputs();
-        setUser(user);
-      } else {
-        setUser("");
-      }
-    });
-  };
-
-  useEffect(() => {
-    authListener();
-  }, []);
+const Login = (props) => {
+  const [loginView, setLoginView] = useState(true);
+  const [repeatedEmail, setRepeatedEmail] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleLogin,
+    handleSignup,
+    hasAccount,
+    setHasAccount,
+    emailError,
+    passwordError,
+  } = props;
 
   return (
-    <Container>
-      <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            // onChange={handleChange}
-          />
-        </Form.Group>
+    <>
+      {loginView ? (
+        <Container>
+          <h1>Logowanie</h1>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Adres email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                autoFocus
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="errorMsg">{emailError}</p>
+            </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Row>
-          <Col>
-            <Button
-              variant="primary"
-              type="submit"
-              // onSubmit={handleSubmit}
-              value={email}
-            >
-              Submit
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" onClick={() => console.log("register")}>
-              Register
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-    </Container>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Hasło</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Hasło"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p className="errorMsg">{passwordError}</p>
+            </Form.Group>
+            <Row>
+              <Col>
+                <Button
+                  variant="primary"
+                  style={{ width: "30vw" }}
+                  onClick={handleLogin}
+                >
+                  Zaloguj
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  style={{ width: "30vw" }}
+                  onClick={() => setLoginView(false)}
+                >
+                  Zarejestruj się
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      ) : (
+        <Container>
+          <h1>Rejestracja</h1>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Adres email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                autoFocus
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="errorMsg">{emailError}</p>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmailRepeat">
+              <Form.Label>Powtórz adres email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Powtórz email"
+                autoFocus
+                required
+                value={repeatedEmail}
+                onChange={(e) => setRepeatedEmail(e.target.value)}
+              />
+              <p className="errorMsg">{emailError}</p>
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Hasło</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Hasło"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p className="errorMsg">{passwordError}</p>
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Powtórz hasło</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Powtórz hasło"
+                required
+                value={repeatedPassword}
+                onChange={(e) => setRepeatedPassword(e.target.value)}
+              />
+              <p className="errorMsg">{passwordError}</p>
+            </Form.Group>
+            <Row>
+              <Col>
+                <Button
+                  variant="primary"
+                  style={{ width: "30vw" }}
+                  onClick={() => setLoginView(false)}
+                >
+                  Zarejestruj się
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  className="btn-secondary"
+                  style={{ width: "15vw" }}
+                  onClick={() => setLoginView(true)}
+                >
+                  Powrót do logowania
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      )}
+    </>
   );
 };
 

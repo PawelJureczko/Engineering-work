@@ -27,6 +27,7 @@ const SingleTodo = ({ isDone, id, name, task }) => {
       .update({ isDone: !isChecked });
     setIsChecked(!isChecked);
   }
+
   return (
     <ul className="SingleTodo__wrapper">
       <li className={isChecked ? "SingleTodo SingleTodo__done" : "SingleTodo "}>

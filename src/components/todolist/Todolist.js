@@ -5,7 +5,7 @@ import TodolistForm from "./TodolistForm";
 const ToDoList = () => {
   return (
     <div className="tdl_wrapper">
-      <h3 className="tdl_title">Lista zadań do zrobienia:</h3>
+      <h3 className="tdl_title">Task list:</h3>
       <TodolistForm />
     </div>
   );
