@@ -1,169 +1,82 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
 import "./Login.scss";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "firebase/auth";
+import LoginSite from "./LoginSite/LoginSite";
+import RegistrationSite from "./RegistrationSite/RegistrationSite";
 
 const Login = (props) => {
   const [loginView, setLoginView] = useState(true);
-  const [repeatedEmail, setRepeatedEmail] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const {
+    setPasswordError,
     email,
     setEmail,
     password,
     setPassword,
     handleLogin,
     handleSignup,
-    hasAccount,
-    setHasAccount,
+    // hasAccount,
+    // setHasAccount,
     emailError,
     passwordError,
     clearErrors,
     clearInputs,
+    userName,
+    userSurname,
+    userSubject,
+    setUserName,
+    setUserSurname,
+    setUserSubject,
+    setUserRole,
   } = props;
 
+  function arePasswordSimilar() {
+    if (password === repeatedPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   return (
     <>
       {loginView ? (
-        <Container>
-          <h1>Logowanie</h1>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Adres email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                autoFocus
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p className="errorMsg">{emailError}</p>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Hasło</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Hasło"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <p className="errorMsg">{passwordError}</p>
-            </Form.Group>
-            <Row>
-              <Col>
-                <Button
-                  variant="primary"
-                  style={{ width: "30vw" }}
-                  onClick={handleLogin}
-                >
-                  Zaloguj
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  variant="primary"
-                  style={{ width: "30vw" }}
-                  onClick={() => {
-                    setLoginView(false);
-                    clearErrors();
-                    clearInputs();
-                  }}
-                >
-                  Zarejestruj się
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Container>
+        <LoginSite
+          email={email}
+          setEmail={setEmail}
+          emailError={emailError}
+          password={password}
+          setPassword={setPassword}
+          passwordError={passwordError}
+          handleLogin={handleLogin}
+          setLoginView={setLoginView}
+          clearErrors={clearErrors}
+          clearInputs={clearInputs}
+        />
       ) : (
-        <Container>
-          <h1>Rejestracja</h1>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Adres email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                autoFocus
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p className="errorMsg">{emailError}</p>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmailRepeat">
-              <Form.Label>Powtórz adres email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Powtórz email"
-                autoFocus
-                required
-                value={repeatedEmail}
-                onChange={(e) => setRepeatedEmail(e.target.value)}
-              />
-              <p className="errorMsg">{emailError}</p>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Hasło</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Hasło"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <p className="errorMsg">{passwordError}</p>
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Powtórz hasło</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Powtórz hasło"
-                required
-                value={repeatedPassword}
-                onChange={(e) => setRepeatedPassword(e.target.value)}
-              />
-              <p className="errorMsg">{passwordError}</p>
-            </Form.Group>
-            <Row>
-              <Col>
-                <Button
-                  variant="primary"
-                  style={{ width: "30vw" }}
-                  onClick={() => {
-                    setLoginView(false);
-                    clearErrors();
-                    clearInputs();
-                  }}
-                >
-                  Zarejestruj się
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  className="btn-secondary"
-                  style={{ width: "15vw" }}
-                  onClick={() => {
-                    setLoginView(true);
-                    clearErrors();
-                    clearInputs();
-                  }}
-                >
-                  Powrót do logowania
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Container>
+        <RegistrationSite
+          email={email}
+          setEmail={setEmail}
+          emailError={emailError}
+          password={password}
+          setPassword={setPassword}
+          passwordError={passwordError}
+          setPasswordError={setPasswordError}
+          handleSignup={handleSignup}
+          setLoginView={setLoginView}
+          clearErrors={clearErrors}
+          clearInputs={clearInputs}
+          repeatedPassword={repeatedPassword}
+          userName={userName}
+          userSurname={userSurname}
+          userSubject={userSubject}
+          setRepeatedPassword={setRepeatedPassword}
+          arePasswordSimilar={arePasswordSimilar}
+          setUserName={setUserName}
+          setUserSurname={setUserSurname}
+          setUserSubject={setUserSubject}
+          setUserRole={setUserRole}
+        />
       )}
     </>
   );
